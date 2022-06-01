@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import CircularProgress from '@mui/material/CircularProgress'
+import Button from '@mui/material/Button'
+
+import React, { Suspense, useState } from 'react'
+
+const CustomSpeedDial = React.lazy(() => import('./CustomSpeedDial'))
 
 function App() {
+  // 2
+  const [showSpeedDial, setShowSpeedDial] = useState(false)
+
+  // 4
+  if (showSpeedDial) {
+    return (
+      // 5
+      <Suspense fallback={<CircularProgress />}>
+        <CustomSpeedDial />
+      </Suspense>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    // 3
+    <Button variant='contained' onClick={() => setShowSpeedDial(true)}>
+      Click to load speed dial
+    </Button>
+  )
 }
 
-export default App;
+export default App
